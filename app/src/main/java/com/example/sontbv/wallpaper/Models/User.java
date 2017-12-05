@@ -17,6 +17,8 @@ public class User {
     private int totalLikes;
     @SerializedName("total_photos")
     private int totalPhotos;
+    @SerializedName("profile_image")
+    private ProfileImage profileImage;
 
     public String getId() {
         return id;
@@ -56,5 +58,46 @@ public class User {
 
     public void setTotalPhotos(int totalPhotos) {
         this.totalPhotos = totalPhotos;
+    }
+
+    public ProfileImage getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(ProfileImage profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public class ProfileImage {
+        @SerializedName("small")
+        private String small;
+        @SerializedName("medium")
+        private String medium;
+        @SerializedName("large")
+        private String large;
+
+        public String getSmall() {
+            return small;
+        }
+
+        public void setSmall(String small) {
+            this.small = small;
+        }
+
+        public String getMedium() {
+            return medium;
+        }
+
+        public void setMedium(String medium) {
+            this.medium = medium;
+        }
+
+        public String getLarge() {
+            return large;
+        }
+
+        public void setLarge(String large) {
+            this.large = large;
+        }
     }
 }

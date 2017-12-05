@@ -1,9 +1,6 @@
 package com.example.sontbv.wallpaper.Activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.sontbv.wallpaper.Fragments.CategoryFragment;
+import com.example.sontbv.wallpaper.Fragments.CollectionsFragment;
 import com.example.sontbv.wallpaper.Fragments.FavoriteFragment;
 import com.example.sontbv.wallpaper.Fragments.HomeFragment;
 import com.example.sontbv.wallpaper.R;
@@ -77,8 +74,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             HomeFragment homeFragment = new HomeFragment();
             Functions.changeMainFragment(MainActivity.this, homeFragment);
-        } else if (id == R.id.nav_category) {
-            CategoryFragment categoryFragment = new CategoryFragment();
+        } else if (id == R.id.nav_collections) {
+            CollectionsFragment categoryFragment = new CollectionsFragment();
             Functions.changeMainFragment(MainActivity.this, categoryFragment);
         } else if (id == R.id.nav_favorite) {
             FavoriteFragment favoriteFragment = new FavoriteFragment();
