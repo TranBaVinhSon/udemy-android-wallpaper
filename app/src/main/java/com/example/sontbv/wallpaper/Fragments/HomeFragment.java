@@ -9,12 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.sontbv.wallpaper.Adapters.PhotosAdatper;
 import com.example.sontbv.wallpaper.Models.Photo;
 import com.example.sontbv.wallpaper.R;
 import com.example.sontbv.wallpaper.Webservices.ApiInterface;
-import com.example.sontbv.wallpaper.Webservices.Responses.PhotosResponse;
 import com.example.sontbv.wallpaper.Webservices.ServiceGenerator;
 
 import java.util.ArrayList;
@@ -35,6 +35,8 @@ public class HomeFragment extends Fragment {
     private final static String TAG = HomeFragment.class.getSimpleName();
     @BindView(R.id.fragment_home_recyclerview)
     RecyclerView homeRecycerView;
+    @BindView(R.id.fragment_home_processbar)
+    ProgressBar progressBar;
 
     private PhotosAdatper photosAdatper;
     private List<Photo> photos = new ArrayList<>();
@@ -51,7 +53,7 @@ public class HomeFragment extends Fragment {
 
         photosAdatper = new PhotosAdatper(getActivity(), photos);
         homeRecycerView.setAdapter(photosAdatper);
-
+        showProgressBar(true);
         getPhotos();
 
         return view;
@@ -70,16 +72,29 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, photo.getUrl().getFull());
                     }
                     photosAdatper.notifyDataSetChanged();
+
                 }else{
                     Log.d(TAG, "Fail" + response.message());
                 }
+                showProgressBar(false);
             }
 
             @Override
             public void onFailure(Call<List<Photo>> call, Throwable t) {
                 Log.d(TAG, "Fail: " + t.getMessage());
+                showProgressBar(false);
             }
         });
+    }
+
+    private void showProgressBar(boolean isShow){
+        if(isShow){
+            progressBar.setVisibility(View.VISIBLE);
+            homeRecycerView.setVisibility(View.GONE);
+        }else{
+            progressBar.setVisibility(View.GONE);
+            homeRecycerView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

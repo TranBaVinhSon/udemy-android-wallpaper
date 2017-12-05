@@ -1,7 +1,6 @@
 package com.example.sontbv.wallpaper.Webservices;
 
 import com.example.sontbv.wallpaper.Models.Photo;
-import com.example.sontbv.wallpaper.Webservices.Responses.PhotosResponse;
 
 import java.util.List;
 

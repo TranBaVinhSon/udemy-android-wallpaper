@@ -19,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by sontbv on 12/3/17.
@@ -35,10 +36,12 @@ public class PhotosAdatper extends RecyclerView.Adapter<PhotosAdatper.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.item_photo_description)
-        TextView description;
+        @BindView(R.id.item_photo_username)
+        TextView username;
         @BindView(R.id.item_photo_photo)
         SquareImage photo;
+        @BindView(R.id.item_photo_user_avatar)
+        CircleImageView userAvatar;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -49,13 +52,18 @@ public class PhotosAdatper extends RecyclerView.Adapter<PhotosAdatper.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Photo photo = photos.get(position);
-        holder.description.setText(photo.getDescription());
+        holder.username.setText(photo.getUser().getUsername());
         GlideApp
                 .with(context)
                 .load(photo.getUrl().getRegular())
                 .placeholder(R.drawable.placeholder)
                 .override(600, 600)
                 .into(holder.photo);
+
+        GlideApp
+                .with(context)
+                .load(photo.getUser().getProfileImage().getSmall())
+                .into(holder.userAvatar);
     }
 
     @Override
