@@ -31,8 +31,8 @@ import retrofit2.Response;
  * Created by sontbv on 12/2/17.
  */
 
-public class HomeFragment extends Fragment {
-    private final static String TAG = HomeFragment.class.getSimpleName();
+public class PhotosFragment extends Fragment {
+    private final static String TAG = PhotosFragment.class.getSimpleName();
     @BindView(R.id.fragment_home_recyclerview)
     RecyclerView homeRecycerView;
     @BindView(R.id.fragment_home_processbar)
@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_photos, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

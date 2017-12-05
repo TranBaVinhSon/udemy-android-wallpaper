@@ -1,5 +1,6 @@
 package com.example.sontbv.wallpaper.Webservices;
 
+import com.example.sontbv.wallpaper.Models.Collection;
 import com.example.sontbv.wallpaper.Models.Photo;
 
 import java.util.List;
@@ -16,5 +17,8 @@ public interface ApiInterface {
 
     @GET("photos")
     Call<List<Photo>> getPhotos();
+
+    @GET("collections/featured")
+    Call<List<Collection>> getCollections();
 
 }
