@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import com.example.sontbv.wallpaper.Adapters.CollectionsAdapter;
 import com.example.sontbv.wallpaper.Models.Collection;
 import com.example.sontbv.wallpaper.R;
+import com.example.sontbv.wallpaper.Utils.Functions;
 import com.example.sontbv.wallpaper.Webservices.ApiInterface;
 import com.example.sontbv.wallpaper.Webservices.ServiceGenerator;
 
@@ -54,7 +55,13 @@ public class CollectionsFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Collection collection = collections.get(i);
+                Log.d(TAG, collection.getId() + "");
+                Bundle bundle = new Bundle();
+                bundle.putInt("collectionId", collection.getId());
+                PhotosFragment photosFragment = new PhotosFragment();
+                photosFragment.setArguments(bundle);
+                Functions.changeMainFragment(getActivity(), photosFragment);
             }
         });
 
