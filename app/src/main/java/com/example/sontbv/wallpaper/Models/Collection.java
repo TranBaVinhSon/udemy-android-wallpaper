@@ -17,6 +17,16 @@ public class Collection {
     private int totalPhotos;
     @SerializedName("cover_photo")
     private Photo coverPhoto = new Photo();
+    @SerializedName("user")
+    private User user = new User();
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getId() {
         return id;

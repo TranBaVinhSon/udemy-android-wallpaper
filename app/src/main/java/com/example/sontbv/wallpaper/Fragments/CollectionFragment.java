@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.example.sontbv.wallpaper.Adapters.GlideApp;
 import com.example.sontbv.wallpaper.Adapters.PhotosAdatper;
 import com.example.sontbv.wallpaper.Models.Collection;
 import com.example.sontbv.wallpaper.Models.Photo;
@@ -24,43 +26,84 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by sontbv on 12/2/17.
+ * Created by sontbv on 12/6/17.
  */
 
-public class PhotosFragment extends Fragment {
-    private final static String TAG = PhotosFragment.class.getSimpleName();
-    @BindView(R.id.fragment_photos_recyclerview)
-    RecyclerView photosRecyclerView;
-    @BindView(R.id.fragment_photos_processbar)
+public class CollectionFragment extends Fragment {
+    private final String TAG = CollectionFragment.class.getSimpleName();
+    @BindView(R.id.fragment_collection_recyclerview) RecyclerView photosRecyclerView;
+    @BindView(R.id.fragment_collection_processbar)
     ProgressBar progressBar;
+    @BindView(R.id.fragment_collection_user_avatar)
+    CircleImageView userAvatar;
+    @BindView(R.id.fragment_collection_username)
+    TextView username;
+    @BindView(R.id.fragment_collection_title)
+    TextView title;
+    @BindView(R.id.fragment_collection_description)
+    TextView description;
+
+
+    private Unbinder unbinder;
 
     private PhotosAdatper photosAdatper;
     private List<Photo> photos = new ArrayList<>();
-
-    private Unbinder unbinder;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_photos, container, false);
+        View view = inflater.inflate(R.layout.fragment_collection, container, false);
         unbinder = ButterKnife.bind(this, view);
+        // RecyclerView
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         photosRecyclerView.setLayoutManager(linearLayoutManager);
-
         photosAdatper = new PhotosAdatper(getActivity(), photos);
         photosRecyclerView.setAdapter(photosAdatper);
+        Bundle bundle = getArguments();
+        int collectionId = bundle.getInt("collectionId");
+
         showProgressBar(true);
-        getPhotos();
+        getInformationOfCollection(collectionId);
+        getPhotosOfCollection(collectionId);
         return view;
     }
 
-    private void getPhotos(){
+    private void getInformationOfCollection(final int collectionId){
         ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
-        Call<List<Photo>> call = apiInterface.getPhotos();
+        Call<Collection> call = apiInterface.getInformationOfCollection(collectionId);
+        call.enqueue(new Callback<Collection>() {
+            @Override
+            public void onResponse(Call<Collection> call, Response<Collection> response) {
+                if(response.isSuccessful()){
+                    Collection collection = response.body();
+                    title.setText(collection.getTitle());
+                    description.setText(collection.getDescription());
+                    username.setText(collection.getUser().getUsername());
+                    GlideApp
+                            .with(getActivity())
+                            .load(collection.getUser().getProfileImage().getSmall())
+                            .into(userAvatar);
+
+                }else{
+                    Log.d(TAG, "Fail" + response.message());
+                }
+            }
+            @Override
+            public void onFailure(Call<Collection> call, Throwable t) {
+                Log.d(TAG, "Fail: " + t.getMessage());
+            }
+        });
+    }
+
+
+    private void getPhotosOfCollection(int collectionId){
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<List<Photo>> call = apiInterface.getPhotosOfCollection(collectionId);
         call.enqueue(new Callback<List<Photo>>() {
             @Override
             public void onResponse(Call<List<Photo>> call, Response<List<Photo>> response) {
@@ -85,9 +128,6 @@ public class PhotosFragment extends Fragment {
             }
         });
     }
-
-
-
     private void showProgressBar(boolean isShow){
         if(isShow){
             progressBar.setVisibility(View.VISIBLE);
@@ -97,7 +137,6 @@ public class PhotosFragment extends Fragment {
             photosRecyclerView.setVisibility(View.VISIBLE);
         }
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
