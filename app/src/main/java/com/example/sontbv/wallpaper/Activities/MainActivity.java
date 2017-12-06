@@ -12,7 +12,7 @@ import android.view.MenuItem;
 
 import com.example.sontbv.wallpaper.Fragments.CollectionsFragment;
 import com.example.sontbv.wallpaper.Fragments.FavoriteFragment;
-import com.example.sontbv.wallpaper.Fragments.HomeFragment;
+import com.example.sontbv.wallpaper.Fragments.PhotosFragment;
 import com.example.sontbv.wallpaper.R;
 import com.example.sontbv.wallpaper.Utils.Functions;
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        HomeFragment homeFragment = new HomeFragment();
+        PhotosFragment homeFragment = new PhotosFragment();
         Functions.changeMainFragment(MainActivity.this, homeFragment);
     }
 
@@ -71,12 +71,12 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            HomeFragment homeFragment = new HomeFragment();
-            Functions.changeMainFragment(MainActivity.this, homeFragment);
+        if (id == R.id.nav_photos) {
+            PhotosFragment photosFragment = new PhotosFragment();
+            Functions.changeMainFragment(MainActivity.this, photosFragment);
         } else if (id == R.id.nav_collections) {
-            CollectionsFragment categoryFragment = new CollectionsFragment();
-            Functions.changeMainFragment(MainActivity.this, categoryFragment);
+            CollectionsFragment collectionsFragment = new CollectionsFragment();
+            Functions.changeMainFragment(MainActivity.this, collectionsFragment);
         } else if (id == R.id.nav_favorite) {
             FavoriteFragment favoriteFragment = new FavoriteFragment();
             Functions.changeMainFragment(MainActivity.this, favoriteFragment);
