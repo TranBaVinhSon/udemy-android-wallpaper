@@ -59,9 +59,9 @@ public class CollectionsFragment extends Fragment {
                 Log.d(TAG, collection.getId() + "");
                 Bundle bundle = new Bundle();
                 bundle.putInt("collectionId", collection.getId());
-                PhotosFragment photosFragment = new PhotosFragment();
-                photosFragment.setArguments(bundle);
-                Functions.changeMainFragment(getActivity(), photosFragment);
+                CollectionFragment collectionFragment = new CollectionFragment();
+                collectionFragment.setArguments(bundle);
+                Functions.changeMainFragment(getActivity(), collectionFragment);
             }
         });
 
