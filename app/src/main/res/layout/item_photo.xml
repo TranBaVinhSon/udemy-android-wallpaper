@@ -17,7 +17,7 @@
         android:background="@color/transparent_color"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-        android:padding="12dp">
+        android:padding="8dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_photo_user_avatar"
