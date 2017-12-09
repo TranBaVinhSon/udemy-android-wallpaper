@@ -2,17 +2,18 @@ package com.example.sontbv.wallpaper.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by sontbv on 12/3/17.
  */
 
-public class Photo {
+public class Photo extends RealmObject{
     @SerializedName("id")
+    @PrimaryKey
     private String id;
-    @SerializedName("created_at")
-    private String createdAt;
-    @SerializedName("updated_at")
-    private String updatedAt;
     @SerializedName("description")
     private String description;
     @SerializedName("likes")
@@ -28,22 +29,6 @@ public class Photo {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public String getDescription() {
@@ -76,38 +61,5 @@ public class Photo {
 
     public void setUrl(PhotoUrl url) {
         this.url = url;
-    }
-
-    public class PhotoUrl {
-        @SerializedName("raw")
-        private String raw;
-        @SerializedName("full")
-        private String full;
-        @SerializedName("regular")
-        private String regular;
-
-        public String getRaw() {
-            return raw;
-        }
-
-        public void setRaw(String raw) {
-            this.raw = raw;
-        }
-
-        public String getFull() {
-            return full;
-        }
-
-        public void setFull(String full) {
-            this.full = full;
-        }
-
-        public String getRegular() {
-            return regular;
-        }
-
-        public void setRegular(String regular) {
-            this.regular = regular;
-        }
     }
 }
