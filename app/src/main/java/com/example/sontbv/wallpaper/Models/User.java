@@ -20,7 +20,7 @@ public class User extends RealmObject{
     @SerializedName("total_photos")
     private int totalPhotos;
     @SerializedName("profile_image")
-    private ProfileImage profileImage;
+    private ProfileImage profileImage = new ProfileImage();
 
     public String getId() {
         return id;
