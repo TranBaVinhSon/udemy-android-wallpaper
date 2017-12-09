@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+//import com.example.sontbv.wallpaper.Adapters.GlideApp;
 import com.example.sontbv.wallpaper.Adapters.GlideApp;
 import com.example.sontbv.wallpaper.Adapters.PhotosAdatper;
 import com.example.sontbv.wallpaper.Models.Collection;

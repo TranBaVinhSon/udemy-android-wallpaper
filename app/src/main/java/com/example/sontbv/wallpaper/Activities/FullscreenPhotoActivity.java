@@ -11,10 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
-import com.example.sontbv.wallpaper.Adapters.GlideApp;
+//import com.example.sontbv.wallpaper.Adapters.GlideApp;
 import com.example.sontbv.wallpaper.Models.Photo;
 import com.example.sontbv.wallpaper.R;
 import com.example.sontbv.wallpaper.Utils.Functions;
@@ -66,6 +67,9 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
         getPhoto(photoId);
 
         realmController = RealmController.with(FullscreenPhotoActivity.this);
+        if(realmController.isPhotoExist(photoId)){
+            fabFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_favorited));
+        }
     }
 
     private void getPhoto(String id){
@@ -94,11 +98,11 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
         // Make sure that, if we have some errors here, our application will not crash
         try{
             username.setText(photo.getUser().getUsername());
-            GlideApp.with(FullscreenPhotoActivity.this)
+            Glide.with(FullscreenPhotoActivity.this)
                     .load(photo.getUser().getProfileImage().getSmall())
                     .into(userAvatar);
 
-            GlideApp
+            Glide
                     .with(FullscreenPhotoActivity.this)
                     .asBitmap()
                     .load(photo.getUrl().getFull())
@@ -109,7 +113,6 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
                             photoBitmap = resource;
                         }
                     });
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -129,9 +132,11 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
     public void setFabFavorite(){
         if(realmController.isPhotoExist(photo.getId())){
             realmController.deletePhoto(photo);
+            fabFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_favorite));
             Toast.makeText(this, "Remove Favorite", Toast.LENGTH_SHORT).show();
         }else{
             realmController.savePhoto(photo);
+            fabFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_favorited));
             Toast.makeText(this, "Favorited", Toast.LENGTH_SHORT).show();
         }
         fabMenu.close(true);
@@ -141,6 +146,5 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-        realmController.closeRealm();
     }
 }

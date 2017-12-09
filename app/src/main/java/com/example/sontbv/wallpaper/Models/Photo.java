@@ -3,6 +3,7 @@ package com.example.sontbv.wallpaper.Models;
 import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -60,39 +61,5 @@ public class Photo extends RealmObject{
 
     public void setUrl(PhotoUrl url) {
         this.url = url;
-    }
-
-
-    public class PhotoUrl extends RealmObject{
-        @SerializedName("raw")
-        private String raw;
-        @SerializedName("full")
-        private String full;
-        @SerializedName("regular")
-        private String regular;
-
-        public String getRaw() {
-            return raw;
-        }
-
-        public void setRaw(String raw) {
-            this.raw = raw;
-        }
-
-        public String getFull() {
-            return full;
-        }
-
-        public void setFull(String full) {
-            this.full = full;
-        }
-
-        public String getRegular() {
-            return regular;
-        }
-
-        public void setRegular(String regular) {
-            this.regular = regular;
-        }
     }
 }

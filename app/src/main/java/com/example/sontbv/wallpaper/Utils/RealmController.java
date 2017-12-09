@@ -8,6 +8,7 @@ import com.example.sontbv.wallpaper.Models.Photo;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by sontbv on 12/9/17.
@@ -38,10 +39,15 @@ public class RealmController {
         realm.commitTransaction();
     }
 
-    public void deletePhoto(Photo photo){
-        realm.beginTransaction();
-        photo.deleteFromRealm();
-        realm.commitTransaction();
+    public void deletePhoto(final Photo photo){
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Photo resultPhoto = realm.where(Photo.class).equalTo("id", photo.getId()).findFirst();
+                resultPhoto.deleteFromRealm();
+            }
+        });
+
     }
 
     public boolean isPhotoExist(String photoId){
