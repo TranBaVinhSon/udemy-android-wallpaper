@@ -1,14 +1,17 @@
 package com.example.sontbv.wallpaper.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.sontbv.wallpaper.Activities.FullscreenPhotoActivity;
 import com.example.sontbv.wallpaper.Models.Photo;
 import com.example.sontbv.wallpaper.R;
 import com.example.sontbv.wallpaper.Utils.SquareImage;
@@ -19,6 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -45,7 +49,16 @@ public class PhotosAdatper extends RecyclerView.Adapter<PhotosAdatper.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    String photoId = photos.get(position).getId();
+                    Intent intent = new Intent(context, FullscreenPhotoActivity.class);
+                    intent.putExtra("photoId", photoId);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 

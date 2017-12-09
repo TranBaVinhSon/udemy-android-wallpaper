@@ -10,23 +10,20 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/transparent_color"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-        android:padding="12dp">
+        android:padding="8dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_photo_user_avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            app:civ_border_width="1dp"
-            app:civ_border_color="#ffffff"/>
+            android:scaleType="centerCrop"/>
         <TextView
             android:id="@+id/item_photo_username"
             android:layout_width="match_parent"
