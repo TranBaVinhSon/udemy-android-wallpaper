@@ -2,12 +2,16 @@ package com.example.sontbv.wallpaper.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by sontbv on 12/3/17.
  */
 
-public class Photo {
+public class Photo extends RealmObject{
     @SerializedName("id")
+    @PrimaryKey
     private String id;
     @SerializedName("created_at")
     private String createdAt;
