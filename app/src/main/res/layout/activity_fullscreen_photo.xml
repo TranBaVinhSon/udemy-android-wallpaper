@@ -65,15 +65,7 @@
             app:fab_colorNormal="@color/yellow"
             app:fab_label="@string/favorite"
             />
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/activity_fullscreen_photo_fab_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_size="mini"
-            android:src="@drawable/ic_share"
-            app:fab_colorNormal="@color/yellow"
-            app:fab_label="@string/share"
-            />
+
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/activity_fullscreen_photo_fab_set_wallpaper"
             android:layout_width="wrap_content"

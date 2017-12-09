@@ -42,8 +42,6 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
     ImageView fullscreenPhoto;
     @BindView(R.id.activity_fullscreen_photo_fab_menu)
     FloatingActionMenu fabMenu;
-    @BindView(R.id.activity_fullscreen_photo_fab_share)
-    FloatingActionButton fabShare;
     @BindView(R.id.activity_fullscreen_photo_fab_set_wallpaper)
     FloatingActionButton fabWallpaper;
     @BindView(R.id.activity_fullscreen_photo_fab_favorite)
@@ -108,12 +106,6 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    @OnClick(R.id.activity_fullscreen_photo_fab_share)
-    public void setFabShare(){
-        Toast.makeText(this, "share", Toast.LENGTH_LONG).show();
-        fabMenu.close(true);
-    }
     @OnClick(R.id.activity_fullscreen_photo_fab_set_wallpaper)
     public void setFabWallpaper(){
         if(photoBitmap != null){
@@ -122,7 +114,6 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
             }else{
                 Toast.makeText(this, "Set Wallpaper fail", Toast.LENGTH_LONG).show();
             }
-
         }
         fabMenu.close(true);
     }
