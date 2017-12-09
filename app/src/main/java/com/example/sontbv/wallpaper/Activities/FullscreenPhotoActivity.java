@@ -12,10 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 //import com.example.sontbv.wallpaper.Adapters.GlideApp;
+import com.example.sontbv.wallpaper.Adapters.GlideApp;
 import com.example.sontbv.wallpaper.Models.Photo;
 import com.example.sontbv.wallpaper.R;
 import com.example.sontbv.wallpaper.Utils.Functions;
@@ -98,14 +100,15 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
         // Make sure that, if we have some errors here, our application will not crash
         try{
             username.setText(photo.getUser().getUsername());
-            Glide.with(FullscreenPhotoActivity.this)
+            GlideApp.with(FullscreenPhotoActivity.this)
                     .load(photo.getUser().getProfileImage().getSmall())
                     .into(userAvatar);
 
-            Glide
+            GlideApp
                     .with(FullscreenPhotoActivity.this)
                     .asBitmap()
-                    .load(photo.getUrl().getFull())
+                    .load(photo.getUrl().getRegular())
+                    .centerCrop()
                     .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
                         @Override
                         public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
