@@ -1,6 +1,8 @@
 package com.example.sontbv.wallpaper.Activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,9 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.sontbv.wallpaper.Adapters.GlideApp;
 import com.example.sontbv.wallpaper.Models.Photo;
 import com.example.sontbv.wallpaper.R;
+import com.example.sontbv.wallpaper.Utils.Functions;
 import com.example.sontbv.wallpaper.Webservices.ApiInterface;
 import com.example.sontbv.wallpaper.Webservices.ServiceGenerator;
 import com.github.clans.fab.FloatingActionButton;
@@ -44,6 +50,7 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
     FloatingActionButton fabFavorite;
 
     private Unbinder unbinder;
+    private Bitmap photoBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,7 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
         String photoId = intent.getStringExtra("photoId");
         getPhoto(photoId);
     }
+
     private void getPhoto(String id){
         ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
         Call<Photo> call = apiInterface.getPhoto(id);
@@ -76,7 +84,7 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUI(Photo photo){
+    private void updateUI(final Photo photo){
         // Make sure that, if we have some errors here, our application will not crash
         try{
             username.setText(photo.getUser().getUsername());
@@ -84,11 +92,18 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
                     .load(photo.getUser().getProfileImage().getSmall())
                     .into(userAvatar);
 
-
-            GlideApp.with(FullscreenPhotoActivity.this)
+            GlideApp
+                    .with(FullscreenPhotoActivity.this)
+                    .asBitmap()
                     .load(photo.getUrl().getFull())
-                    .placeholder(R.drawable.placeholder)
-                    .into(fullscreenPhoto);
+                    .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                        @Override
+                        public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                            fullscreenPhoto.setImageBitmap(resource);
+                            photoBitmap = resource;
+                        }
+                    });
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -97,13 +112,23 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
     @OnClick(R.id.activity_fullscreen_photo_fab_share)
     public void setFabShare(){
         Toast.makeText(this, "share", Toast.LENGTH_LONG).show();
+        fabMenu.close(true);
     }
     @OnClick(R.id.activity_fullscreen_photo_fab_set_wallpaper)
     public void setFabWallpaper(){
-        Toast.makeText(this, "Wallpaper", Toast.LENGTH_LONG).show();
+        if(photoBitmap != null){
+            if(Functions.setWallpaper(FullscreenPhotoActivity.this, photoBitmap)){
+                Toast.makeText(this, "Set Wallpaper successfully", Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(this, "Set Wallpaper fail", Toast.LENGTH_LONG).show();
+            }
+
+        }
+        fabMenu.close(true);
     }
     @OnClick(R.id.activity_fullscreen_photo_fab_favorite)
     public void setFabFavorite(){
         Toast.makeText(this, "Favorite", Toast.LENGTH_LONG).show();
+        fabMenu.close(true);
     }
 }
