@@ -52,7 +52,10 @@ public class PhotosAdatper extends RecyclerView.Adapter<PhotosAdatper.ViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    String photoId = photos.get(position).getId();
                     Intent intent = new Intent(context, FullscreenPhotoActivity.class);
+                    intent.putExtra("photoId", photoId);
                     context.startActivity(intent);
                 }
             });
