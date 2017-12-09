@@ -62,7 +62,8 @@ public class Photo extends RealmObject{
         this.url = url;
     }
 
-    public class PhotoUrl {
+
+    public class PhotoUrl extends RealmObject{
         @SerializedName("raw")
         private String raw;
         @SerializedName("full")

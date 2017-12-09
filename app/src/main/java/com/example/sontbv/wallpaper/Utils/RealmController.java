@@ -5,6 +5,8 @@ import android.app.Application;
 
 import com.example.sontbv.wallpaper.Models.Photo;
 
+import java.util.List;
+
 import io.realm.Realm;
 
 /**
@@ -25,23 +27,31 @@ public class RealmController {
         }
         return realmController;
     }
+
     public void closeRealm(){
         realm.close();
     }
+
     public void savePhoto(Photo photo){
         realm.beginTransaction();
         realm.copyToRealm(photo);
         realm.commitTransaction();
     }
+
     public void deletePhoto(Photo photo){
         realm.beginTransaction();
         photo.deleteFromRealm();
         realm.commitTransaction();
     }
+
     public boolean isPhotoExist(String photoId){
         Photo checkedPhoto = realm.where(Photo.class).equalTo("id", photoId).findFirst();
         if(checkedPhoto == null)
             return false;
         return true;
+    }
+
+    public List<Photo> getPhotos(){
+        return realm.where(Photo.class).findAll();
     }
 }
