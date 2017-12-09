@@ -25,17 +25,18 @@ public class RealmController {
         }
         return realmController;
     }
+    public void closeRealm(){
+        realm.close();
+    }
     public void savePhoto(Photo photo){
         realm.beginTransaction();
-
-       if(isPhotoExist(photo.getId())){
-           // Delete
-           photo.deleteFromRealm();
-       }else{
-           // Save
-           realm.copyToRealm(photo);
-       }
-       realm.commitTransaction();
+        realm.copyToRealm(photo);
+        realm.commitTransaction();
+    }
+    public void deletePhoto(Photo photo){
+        realm.beginTransaction();
+        photo.deleteFromRealm();
+        realm.commitTransaction();
     }
     public boolean isPhotoExist(String photoId){
         Photo checkedPhoto = realm.where(Photo.class).equalTo("id", photoId).findFirst();

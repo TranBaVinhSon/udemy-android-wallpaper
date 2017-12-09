@@ -13,10 +13,6 @@ public class Photo extends RealmObject{
     @SerializedName("id")
     @PrimaryKey
     private String id;
-    @SerializedName("created_at")
-    private String createdAt;
-    @SerializedName("updated_at")
-    private String updatedAt;
     @SerializedName("description")
     private String description;
     @SerializedName("likes")
@@ -32,22 +28,6 @@ public class Photo extends RealmObject{
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public String getDescription() {

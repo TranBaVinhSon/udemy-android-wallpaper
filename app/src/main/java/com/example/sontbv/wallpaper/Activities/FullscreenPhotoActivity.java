@@ -18,6 +18,7 @@ import com.example.sontbv.wallpaper.Adapters.GlideApp;
 import com.example.sontbv.wallpaper.Models.Photo;
 import com.example.sontbv.wallpaper.R;
 import com.example.sontbv.wallpaper.Utils.Functions;
+import com.example.sontbv.wallpaper.Utils.RealmController;
 import com.example.sontbv.wallpaper.Webservices.ApiInterface;
 import com.example.sontbv.wallpaper.Webservices.ServiceGenerator;
 import com.github.clans.fab.FloatingActionButton;
@@ -28,6 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,16 +51,21 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
 
     private Unbinder unbinder;
     private Bitmap photoBitmap;
+    private RealmController realmController;
+    private Photo photo = new Photo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen_photo);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // Get Information of Photo
         unbinder = ButterKnife.bind(this);
         Intent intent = getIntent();
         String photoId = intent.getStringExtra("photoId");
         getPhoto(photoId);
+
+        realmController = RealmController.with(FullscreenPhotoActivity.this);
     }
 
     private void getPhoto(String id){
@@ -69,7 +76,8 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
             public void onResponse(Call<Photo> call, Response<Photo> response) {
                 if(response.isSuccessful()){
                     Log.d(TAG, "success");
-                    updateUI(response.body());
+                    photo = response.body();
+                    updateUI(photo);
                 }else{
                     Log.e(TAG, response.message());
                 }
@@ -119,7 +127,20 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
     }
     @OnClick(R.id.activity_fullscreen_photo_fab_favorite)
     public void setFabFavorite(){
-        Toast.makeText(this, "Favorite", Toast.LENGTH_LONG).show();
+        if(realmController.isPhotoExist(photo.getId())){
+            realmController.deletePhoto(photo);
+            Toast.makeText(this, "Remove Favorite", Toast.LENGTH_SHORT).show();
+        }else{
+            realmController.savePhoto(photo);
+            Toast.makeText(this, "Favorited", Toast.LENGTH_SHORT).show();
+        }
         fabMenu.close(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+        realmController.closeRealm();
     }
 }
