@@ -6,5 +6,5 @@ package com.example.sontbv.wallpaper.Utils;
 
 public class Constants {
     public final static String BASE_API_URL = "https://api.unsplash.com/";
-    public final static String APPLICATION_ID = "ab54353618254be1e6a19dab6b8e4a5e6ec2eb465f82f596cebe35729e7c6b38";
+    public final static String APPLICATION_ID = "c0e847ff97ec931db2bef5bba9adc2df7becd0c158992a24ca11fca8fa3f1a90";
 }

@@ -7,7 +7,7 @@
     <com.example.sontbv.wallpaper.Utils.SquareImage
         android:id="@+id/item_photo_photo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scaleType="centerCrop"/>
 
     <LinearLayout

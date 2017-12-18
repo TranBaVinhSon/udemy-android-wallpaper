@@ -28,6 +28,14 @@ public class Functions {
                 .commit();
     }
 
+    public static void changeMainFragmentWithBack(FragmentActivity fragmentActivity, Fragment fragment){
+        fragmentActivity.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_container, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
     public static boolean setWallpaper(Activity activity, Bitmap bitmap){
         DisplayMetrics metrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);

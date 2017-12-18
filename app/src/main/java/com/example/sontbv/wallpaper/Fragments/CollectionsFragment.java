@@ -24,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,23 +52,34 @@ public class CollectionsFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         adapter = new CollectionsAdapter(getActivity(), collections);
         gridView.setAdapter(adapter);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Collection collection = collections.get(i);
-                Log.d(TAG, collection.getId() + "");
-                Bundle bundle = new Bundle();
-                bundle.putInt("collectionId", collection.getId());
-                CollectionFragment collectionFragment = new CollectionFragment();
-                collectionFragment.setArguments(bundle);
-                Functions.changeMainFragment(getActivity(), collectionFragment);
-            }
-        });
+//
+//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Collection collection = collections.get(i);
+//                Log.d(TAG, collection.getId() + "");
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("collectionId", collection.getId());
+//                CollectionFragment collectionFragment = new CollectionFragment();
+//                collectionFragment.setArguments(bundle);
+//                Functions.changeMainFragment(getActivity(), collectionFragment);
+//            }
+//        });
 
         getCollections();
         showProgressBar(true);
         return view;
+    }
+
+    @OnItemClick(R.id.fragment_collections_gridview)
+    public void onItemClick(int position){
+        Collection collection = collections.get(position);
+        Log.d(TAG, collection.getId() + "");
+        Bundle bundle = new Bundle();
+        bundle.putInt("collectionId", collection.getId());
+        CollectionFragment collectionFragment = new CollectionFragment();
+        collectionFragment.setArguments(bundle);
+        Functions.changeMainFragmentWithBack(getActivity(), collectionFragment);
     }
 
     private void getCollections(){
