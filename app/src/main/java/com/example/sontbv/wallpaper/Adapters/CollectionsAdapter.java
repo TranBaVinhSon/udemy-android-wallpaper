@@ -68,7 +68,7 @@ public class CollectionsAdapter extends BaseAdapter {
             holder.title.setText(collection.getTitle());
 
         }
-        holder.totalPhotos.setText("( + " + String.valueOf(collection.getTotalPhotos()) + " photos )");
+        holder.totalPhotos.setText(String.valueOf(collection.getTotalPhotos()) + " photos");
         GlideApp
                 .with(context)
                 .load(collection.getCoverPhoto().getUrl().getRegular())

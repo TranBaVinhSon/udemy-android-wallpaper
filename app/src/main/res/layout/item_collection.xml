@@ -34,7 +34,7 @@
             android:id="@+id/item_collection_total_photos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(12 photos)"
+            android:text="12 photos"
             android:layout_gravity="center"
             android:textColor="@color/white"
             android:layout_alignParentBottom="true"
