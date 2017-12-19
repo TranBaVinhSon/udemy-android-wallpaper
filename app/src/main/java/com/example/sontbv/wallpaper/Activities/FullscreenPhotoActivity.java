@@ -68,10 +68,11 @@ public class FullscreenPhotoActivity extends AppCompatActivity {
         String photoId = intent.getStringExtra("photoId");
         getPhoto(photoId);
 
-        realmController = RealmController.with(FullscreenPhotoActivity.this);
+        realmController = new RealmController();
         if(realmController.isPhotoExist(photoId)){
             fabFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_favorited));
         }
+
     }
 
     private void getPhoto(String id){

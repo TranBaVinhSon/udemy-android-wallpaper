@@ -52,7 +52,7 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void getPhotos(){
-        RealmController realmController = RealmController.with(getActivity());
+        RealmController realmController = new RealmController();
         photos.addAll(realmController.getPhotos());
         if(photos.size() == 0){
             notification.setVisibility(View.VISIBLE);

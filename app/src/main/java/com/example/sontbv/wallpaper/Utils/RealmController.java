@@ -15,22 +15,10 @@ import io.realm.RealmResults;
  */
 
 public class RealmController {
-    private static RealmController realmController;
     private final Realm realm;
 
     public RealmController(){
         realm = Realm.getDefaultInstance();
-    }
-
-    public static RealmController with(Activity activity){
-        if(realmController == null){
-            realmController = new RealmController();
-        }
-        return realmController;
-    }
-
-    public void closeRealm(){
-        realm.close();
     }
 
     public void savePhoto(Photo photo){
@@ -47,7 +35,6 @@ public class RealmController {
                 resultPhoto.deleteFromRealm();
             }
         });
-
     }
 
     public boolean isPhotoExist(String photoId){

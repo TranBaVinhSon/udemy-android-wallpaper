@@ -46,21 +46,24 @@ public class PhotosAdatper extends RecyclerView.Adapter<PhotosAdatper.ViewHolder
         SquareImage photo;
         @BindView(R.id.item_photo_user_avatar)
         CircleImageView userAvatar;
+        @BindView(R.id.item_photo_layout)
+        FrameLayout frameLayout;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    String photoId = photos.get(position).getId();
-                    Intent intent = new Intent(context, FullscreenPhotoActivity.class);
-                    intent.putExtra("photoId", photoId);
-                    context.startActivity(intent);
-                }
-            });
+        }
+
+        @OnClick(R.id.item_photo_layout)
+        public void handleOnClick(){
+            Log.d(TAG, "dmmmmmmmmm");
+            int position = getAdapterPosition();
+            String photoId = photos.get(position).getId();
+            Intent intent = new Intent(context, FullscreenPhotoActivity.class);
+            intent.putExtra("photoId", photoId);
+            context.startActivity(intent);
         }
     }
+
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -77,6 +80,7 @@ public class PhotosAdatper extends RecyclerView.Adapter<PhotosAdatper.ViewHolder
                 .with(context)
                 .load(photo.getUser().getProfileImage().getSmall())
                 .into(holder.userAvatar);
+
     }
 
     @Override
