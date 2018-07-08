@@ -4,10 +4,12 @@
 
 ## What our application looks like ?
 
-<img src="screenshot1.png">
-<img src="screenshot2.png">
-<img src="screenshot3.png">
-<img src="screenshot4.png">
+<p float="middle">
+  <img src="screenshot1.png" width="100" />
+  <img src="screenshot2.png" width="100" />
+  <img src="screenshot3.png" width="100" />
+  <img src="screenshot4.png" width="100" />
+</p>
 
 ## Requirements
 - You should understand basic Java programing language
@@ -35,4 +37,4 @@ Don’t wait and enroll today. I hope to see you in my course!
 - Anyone who wants to a build a modern and beautifull Android application
 - This course is for intermediate and advanced application developers
 
-### 10$ only and refund within 30 days if you want. Please checkout [my course](https://www.udemy.com/advanced-android-development/?couponCode=ANDROID-LOVERS)
+#### 10$ only and refund within 30 days if you want. Please checkout [my course](https://www.udemy.com/advanced-android-development/?couponCode=ANDROID-LOVERS)
